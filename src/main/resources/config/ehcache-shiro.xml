@@ -2,4 +2,8 @@
 	<defaultCache maxElementsInMemory="10000" eternal="false"
 		timeToIdleSeconds="300" timeToLiveSeconds="600" overflowToDisk="false"
 		diskPersistent="false" diskExpiryThreadIntervalSeconds="120" />
+
+	<!--<defaultCache maxElementsInMemory="10000" eternal="false"-->
+				  <!--timeToIdleSeconds="10" timeToLiveSeconds="10" overflowToDisk="false"-->
+				  <!--diskPersistent="false" diskExpiryThreadIntervalSeconds="120" />-->
 </ehcache>

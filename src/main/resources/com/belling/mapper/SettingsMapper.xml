@@ -11,8 +11,8 @@
 
 	<!-- 更新数据  -->
 	<update id="updateForKey" parameterType="map" statementType="PREPARED">
-		UPDATE sys_settings a SET
-			a.`v` = #{val}
-		WHERE a.k = #{key}
+		UPDATE sys_settings SET
+			v = #{val}
+		WHERE k = #{key}
 	</update>
 </mapper>

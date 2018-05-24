@@ -58,7 +58,7 @@ public class ShiroAuthRealm extends AuthorizingRealm {
 		return new SimpleAuthenticationInfo(token.getUsername(), new String(token.getPassword()), getName());
 	}
 	
-	/**
+	/**principal
 	 * 授权查询回调函数, 进行鉴权但缓存中无用户的授权信息时调用.
 	 */
 	/* (non-Javadoc)
