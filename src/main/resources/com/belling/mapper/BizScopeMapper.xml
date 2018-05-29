@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.belling.admin.mapper.BizScopeMapper">
+
+    <!-- 根据ID查询  -->
+    <select id="get" parameterType="java.lang.Integer" resultType="BizScope">
+        SELECT *
+        FROM biz_scope
+        WHERE id = #{id}
+    </select>
+
+    <select id="getByBizValue" parameterType="java.lang.String" resultType="BizScope">
+        SELECT *
+        FROM biz_scope
+        WHERE bizValue = #{bizValue}
+    </select>
+    <!-- 用户添加  -->
+    <insert id="insert" parameterType="BizScope" statementType="PREPARED" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO biz_scope(
+        bizName,
+        bizValue,
+        bizAddr,
+        bizContact,
+        createTime,
+        createUser,
+        updateTime,
+        updateUser
+        )
+        VALUES (
+        #{bizName},
+        #{bizValue},
+        #{bizAddr},
+        #{bizContact},
+        #{createTime},
+        #{createUser},
+        #{updateTime},
+        #{updateUser}
+        )
+    </insert>
+
+    <update id="update" parameterType="BizScope" statementType="PREPARED">
+        UPDATE biz_scope SET
+        bizName=#{bizName},
+        bizAddr=#{bizAddr},
+        bizContact=#{bizContact},
+        updateTime=#{updateTime},
+        updateUser=#{updateUser}
+        WHERE id = #{id}
+    </update>
+
+
+    <delete id="deleteById" parameterType="list" statementType="PREPARED">
+        DELETE FROM biz_scope
+        <choose>
+            <when test="list == null or list.size() == 0">
+                WHERE 1 != 1
+            </when>
+            <when test="list.size() == 1">
+                WHERE `id` = <foreach collection="list" item="id">#{id}</foreach>
+            </when>
+            <otherwise>
+                WHERE `id` in <foreach collection="list" item="id" open="(" separator="," close=")">#{id}</foreach>
+            </otherwise>
+        </choose>
+    </delete>
+
+
+    <select id="findPaginationByParam" parameterType="map" resultType="BizScope">
+        SELECT *
+        FROM biz_scope a
+        <choose>
+            <when test="idList == null or idList.size() == 0">
+                WHERE 1 != 1
+            </when>
+            <otherwise>
+                AND a.id in <foreach collection="idList" item="item" open="(" separator="," close=")">#{id}</foreach>
+            </otherwise>
+        </choose>
+
+        <if test="bizName != null and bizName != '' ">
+            AND a.bizName like CONCAT('%',#{bizName},'%')
+        </if>
+        <if test="bizValue != null and bizValue != '' ">
+            AND a.bizValue like CONCAT('%',#{bizValue},'%')
+        </if>
+        <if test="bizAddr != null and bizAddr != '' ">
+            AND a.bizAddr like CONCAT('%',#{bizAddr},'%')
+        </if>
+        <if test="bizContact != null and bizContact != '' ">
+            AND a.bizContact like CONCAT('%',#{bizContact},'%')
+        </if>
+        <if test="startTime != null and endTime != null">
+            and (a.createTime between #{startTime} and #{endTime})
+        </if>
+        <if test="startTime != null and endTime == null">
+            and a.createTime &gt;= #{startTime}
+        </if>
+        <if test="startTime == null and endTime != null">
+            and a.createTime &lt;= #{endTime}
+        </if>
+        <if test="createUser != null and createUser != '' ">
+            AND a.createUser like CONCAT('%',#{createUser},'%')
+        </if>
+        ORDER BY a.id DESC
+    </select>
+
+</mapper>

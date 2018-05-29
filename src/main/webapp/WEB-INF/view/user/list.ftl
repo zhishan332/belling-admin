@@ -50,7 +50,10 @@
 				<a class="layui-btn layui-btn-primary" id="btn-allocate">
 					 <i class="layui-icon">&#xe609;</i> 分配角色
 				</a>
-				</@shiro.hasPermission> 
+				</@shiro.hasPermission>
+                <a class="layui-btn layui-btn-primary" id="btn-alloc-biz">
+					 <i class="layui-icon">&#xe609;</i> 分配业务区
+				</a>
 			</div>
 		</span>
 		<span class="fr"> 

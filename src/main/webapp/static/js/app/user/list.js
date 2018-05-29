@@ -280,7 +280,24 @@ layui.use(['form','layer', 'laytpl', 'page_table', 'jacommon', 'tab'], function(
 			});
 			layer.full(index);
 		}
-	});
+	}).on('click','#btn-alloc-biz', function(){
+        var ids = pageTable.getIds($('#dataTable'), 'data-id');
+        if(ids == null || ids == ''){
+            layer.msg('至少选择一行吆！');
+        } else {
+            var array = ids.split(',');
+            if (array.length != 1) {
+                layer.msg('只能单行操作吆！');
+                return;
+            }
+            var index = layer.open({
+                type: 2,
+                title: '分配角色',
+                content: WEB_ROOT + "/admin/userRole/allocate?userId=" + ids
+            });
+            layer.full(index);
+        }
+    });
 	
 	// 回车事件监听
 	$(document).keyup(function(event){
